@@ -3,209 +3,367 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pierre Weill — Illustration, graphisme, vidéo</title>
-  <meta name="description" content="Portfolio de Pierre Weill : illustration numérique, mise en page, motion design et création vidéo pour le spectacle vivant.">
-  <meta property="og:title" content="Pierre Weill — Illustration, graphisme, vidéo">
-  <meta property="og:description" content="Illustration numérique, mise en page, motion design et création vidéo pour le spectacle vivant.">
-  <meta property="og:image" content="media/maleficarum_inquisiteur.webp">
+  <title>Pierre Weill · image, page et vidéo pour la scène et le livre</title>
+  <meta name="description" content="Pierre Weill illustre, met en page et anime des images pour le spectacle vivant et le livre : décors vidéo projetés, teasers, affiches, livres et dossiers de diffusion.">
+  <link rel="canonical" href="https://edzyphe.github.io/">
   <meta property="og:type" content="website">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:url" content="https://edzyphe.github.io/">
+  <meta property="og:title" content="Pierre Weill · image, page et vidéo pour la scène et le livre">
+  <meta property="og:description" content="Décors vidéo projetés, teasers, affiches, livres et dossiers de diffusion : un seul auteur, de l’image fixe à l’image animée.">
+  <meta property="og:image" content="https://edzyphe.github.io/media/maleficarum_inquisiteur-1200.webp">
+  <meta name="theme-color" content="#EDF0F1">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/besley.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <a class="skip" href="#travaux">Aller aux travaux</a>
+  <a class="evitement" href="#plaques">Aller aux projets</a>
 
-  <header class="top">
-    <a class="brand" href="#">Pierre Weill</a>
-    <nav aria-label="Sections">
-      <a href="#video">Vidéo</a>
-      <a href="#illustration">Illustration</a>
-      <a href="#mise-en-page">Mise en page</a>
+  <svg class="pictos" aria-hidden="true" focusable="false">
+    <symbol id="i-prec" viewBox="0 0 20 20"><path d="M12.5 4 6.5 10l6 6"/></symbol>
+    <symbol id="i-suiv" viewBox="0 0 20 20"><path d="m7.5 4 6 6-6 6"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 20 20"><path d="M7 4.5v11M13 4.5v11"/></symbol>
+    <symbol id="i-lire" viewBox="0 0 20 20"><path d="M6.5 4.2v11.6L15.8 10Z"/></symbol>
+    <symbol id="i-agrandir" viewBox="0 0 20 20"><path d="M4 8V4h4M16 8V4h-4M4 12v4h4M16 12v4h-4"/></symbol>
+    <symbol id="i-fermer" viewBox="0 0 20 20"><path d="m5 5 10 10M15 5 5 15"/></symbol>
+  </svg>
+
+  <header class="bandeau">
+    <a class="nom" href="#haut">Pierre Weill</a>
+    <nav class="bandeau-liens" aria-label="Sections">
+      <a href="#plaques">Projets</a>
       <a href="#apropos">À propos</a>
-      <a href="#contact">Contact</a>
     </nav>
+    <a class="bouton" href="mailto:weill.pierre.perso@gmail.com?subject=Projet"><span class="long">Écrire pour un projet</span><span class="court" aria-hidden="true">Écrire</span></a>
   </header>
 
-  <main id="travaux">
-    <section class="hero">
-      <div class="hero-text">
-        <p class="kicker">Portfolio</p>
-        <h1>Pierre Weill</h1>
-        <p class="roles">Illustration <span>·</span> Graphisme <span>·</span> Vidéo &amp; motion</p>
-        <p class="lede">J'illustre, je mets en page et je fais bouger les images, de l'encre numérique à la scène de théâtre. Fondateur des Éditions du Zyphe, j'ai donné forme à l'univers de <em>La Horde du Contrevent</em> en jeu de rôle.</p>
-        <p class="cta"><a class="btn" href="#contact">Me contacter</a> <a class="link" href="#video">Voir les travaux ↓</a></p>
+  <main id="haut">
+    <!-- ========== Séance : premier écran ========== -->
+    <section class="seance" aria-labelledby="titre-seance" data-seance>
+      <div class="ecran-seance">
+        <div class="ecran">
+          <figure class="vue est-active" data-legende="Nouvelles Bien Tempérées : décor vidéo projeté sur scène, Théâtre municipal de Sens, 2026" data-lien="#plaque-1">
+            <video muted loop playsinline preload="metadata" poster="media/nbt-colonnade-boucle.webp" width="1280" height="720" aria-label="Plan du spectacle : une colonnade vidéo projetée derrière le comédien, près d’un piano.">
+              <source src="media/nbt-colonnade-boucle.mp4" type="video/mp4">
+            </video>
+          </figure>
+          <figure class="vue" data-legende="RAFALES : maquette de la double page « Chronox »" data-lien="#plaque-2">
+            <img src="media/rafales_double-page-chronox-1200.webp" srcset="media/rafales_double-page-chronox-640.webp 640w, media/rafales_double-page-chronox-1200.webp 1200w, media/rafales_double-page-chronox.webp 2000w" sizes="(min-width: 1000px) 58vw, 100vw" width="2000" height="1452" alt="Double page de livre : titre CHRONOX rouge brique, colonne de texte, encadré « Générateur de vents » et illustration à l’encre d’un personnage face à un tourbillon." loading="lazy">
+          </figure>
+          <figure class="vue" data-legende="Maleficarum : l’Inquisiteur, illustration" data-lien="#plaque-3">
+            <img src="media/maleficarum_inquisiteur-640.webp" srcset="media/maleficarum_inquisiteur-640.webp 640w, media/maleficarum_inquisiteur-1200.webp 1200w, media/maleficarum_inquisiteur.webp 1398w" sizes="(min-width: 1000px) 30vw, 70vw" width="1398" height="1920" alt="Silhouette d’inquisiteur vert d’eau tenant une torche, se dissolvant en grain vers le bas, un minuscule personnage à ses pieds." loading="lazy">
+          </figure>
+        </div>
       </div>
-      <figure class="hero-art">
-        <a href="media/maleficarum_inquisiteur.webp" class="zoom bare"><img src="media/maleficarum_inquisiteur.webp" width="1398" height="1920" alt="Illustration : silhouette d'inquisiteur vert d'eau tenant une torche, se dissolvant en grain vers le bas, un minuscule personnage à ses pieds." fetchpriority="high"></a>
-        <figcaption>Maleficarum — l'Inquisiteur</figcaption>
-      </figure>
+
+      <div class="annonce">
+        <h1 id="titre-seance">Pierre Weill</h1>
+        <p class="offre">J’illustre, je mets en page et j’anime des images pour le spectacle vivant et le livre&nbsp;: de l’affiche au décor projeté, de la page au teaser.</p>
+        <p class="legende-seance"><a href="#plaque-1" data-legende-lien>Nouvelles Bien Tempérées : décor vidéo projeté sur scène, Théâtre municipal de Sens, 2026</a></p>
+        <div class="commandes" hidden>
+          <button type="button" class="commande" data-prec><svg><use href="#i-prec"/></svg><span class="lecteur">Plaque précédente</span></button>
+          <button type="button" class="commande" data-pause aria-pressed="false"><svg class="si-joue"><use href="#i-pause"/></svg><svg class="si-pause"><use href="#i-lire"/></svg><span class="lecteur" data-pause-texte>Arrêter le défilement</span></button>
+          <button type="button" class="commande" data-suiv><svg><use href="#i-suiv"/></svg><span class="lecteur">Plaque suivante</span></button>
+          <span class="compteur" data-compteur>1 / 3</span>
+        </div>
+        <a class="bouton bouton-plein" href="mailto:weill.pierre.perso@gmail.com?subject=Projet">Écrire pour un projet</a>
+      </div>
+
+      <nav class="boite" aria-label="Les projets">
+        <ol>
+          <li><a class="monture" href="#plaque-1" style="--etiquette: var(--prusse); --sur-etiquette: var(--toile)"><span class="verre"><img src="media/nouvelles-bien-temperees-poster-320.webp" width="320" height="180" alt=""></span><span class="etiquette"><span class="no">N°&nbsp;1</span> Nouvelles Bien Tempérées</span></a></li>
+          <li><a class="monture" href="#plaque-2" style="--etiquette: var(--carmin); --sur-etiquette: var(--toile)"><span class="verre"><img src="media/rafales_double-page-chronox-320.webp" width="320" height="232" alt=""></span><span class="etiquette"><span class="no">N°&nbsp;2</span> RAFALES</span></a></li>
+          <li><a class="monture" href="#plaque-3" style="--etiquette: var(--veronese); --sur-etiquette: var(--toile)"><span class="verre"><img src="media/maleficarum_inquisiteur-320.webp" width="320" height="439" alt=""></span><span class="etiquette"><span class="no">N°&nbsp;3</span> Maleficarum</span></a></li>
+          <li><a class="monture" href="#plaque-4" style="--etiquette: var(--chrome); --sur-etiquette: var(--noir)"><span class="verre"><img src="media/garcon-la-note-poster-320.webp" width="320" height="569" alt=""></span><span class="etiquette"><span class="no">N°&nbsp;4</span> Garçon la note&#8239;!</span></a></li>
+          <li><a class="monture" href="#plaque-5" style="--etiquette: var(--carmin); --sur-etiquette: var(--toile)"><span class="verre"><img src="media/la-fresque_pictogrammes.webp" width="480" height="270" alt=""></span><span class="etiquette"><span class="no">N°&nbsp;5</span> La Fresque</span></a></li>
+          <li><a class="monture" href="#plaque-6" style="--etiquette: var(--chrome); --sur-etiquette: var(--noir)"><span class="verre"><img src="media/illustration_etoffe-des-galeres-320.webp" width="320" height="216" alt=""></span><span class="etiquette"><span class="no">N°&nbsp;6</span> L’étoffe des galères</span></a></li>
+          <li><a class="monture" href="#plaque-7" style="--etiquette: var(--prusse); --sur-etiquette: var(--toile)"><span class="verre"><img src="media/cosmos-03_vortex-320.webp" width="320" height="280" alt=""></span><span class="etiquette"><span class="no">N°&nbsp;7</span> Cosmos</span></a></li>
+        </ol>
+      </nav>
     </section>
 
-    <!-- ========== VIDÉO & MOTION ========== -->
-    <section id="video" class="block">
-      <header class="block-head">
-        <p class="num">I</p>
-        <h2>Vidéo &amp; motion</h2>
-        <p class="block-sub">Création vidéo pour la scène, teasers, motion design pour l'événementiel.</p>
-      </header>
+    <!-- ========== Les plaques ========== -->
+    <div id="plaques" class="plaques">
+      <h2 class="lecteur">Projets</h2>
 
-      <article class="project feature">
-        <div class="media">
-          <video controls preload="none" poster="media/nouvelles-bien-temperees-poster.jpg" width="1920" height="1080">
-            <source src="media/nouvelles-bien-temperees-teaser.mp4" type="video/mp4">
-          </video>
+      <!-- N° 1 -->
+      <article class="plaque" id="plaque-1" aria-labelledby="t1" style="--etiquette: var(--prusse); --sur-etiquette: var(--toile)">
+        <div class="plaque-tete">
+          <h3 id="t1">Nouvelles Bien Tempérées</h3>
+          <ol class="passe-vues" aria-label="Pièces du projet">
+            <li><button type="button" class="vignette" aria-pressed="true"><span class="verre"><img src="media/nouvelles-bien-temperees-poster-320.webp" width="320" height="180" alt=""></span><span class="vignette-texte">Teaser</span></button></li>
+            <li><button type="button" class="vignette" aria-pressed="false"><span class="verre"><img src="media/dossier-nbt-1-320.webp" width="320" height="453" alt=""></span><span class="vignette-texte">Couverture</span></button></li>
+            <li><button type="button" class="vignette" aria-pressed="false"><span class="verre"><img src="media/dossier-nbt-4-320.webp" width="320" height="453" alt=""></span><span class="vignette-texte">Distribution</span></button></li>
+            <li><button type="button" class="vignette" aria-pressed="false"><span class="verre"><img src="media/dossier-nbt-2-320.webp" width="320" height="453" alt=""></span><span class="vignette-texte">Les œuvres</span></button></li>
+          </ol>
         </div>
-        <div class="desc">
-          <h3>Nouvelles Bien Tempérées</h3>
-          <p class="meta">Compagnie L'Ange du Bizarre · coproduction Théâtre municipal de Sens · 2026</p>
-          <p>Création vidéo d'un spectacle adapté de Yourcenar (<em>Comment Wang-Fô fut sauvé</em>) et de Poe (<em>L'Ange du Bizarre</em>) : décors animés projetés sur scène (paysages d'estampe, colonnade), puis teaser du spectacle.</p>
-          <ul class="tags"><li>Scénographie vidéo</li><li>Captation</li><li>Montage</li><li>Étalonnage</li><li>Son</li></ul>
+        <div class="ecran-plaque" data-projecteur>
+          <figure class="piece est-active">
+            <video controls preload="none" poster="media/nouvelles-bien-temperees-poster-1200.webp" width="1600" height="900">
+              <source src="media/nouvelles-bien-temperees-teaser.mp4" type="video/mp4">
+            </video>
+            <figcaption>Teaser du spectacle (1&nbsp;min&nbsp;18)&nbsp;: captation, montage, étalonnage, son et titre.</figcaption>
+          </figure>
+          <figure class="piece">
+            <img src="media/dossier-nbt-1-640.webp" srcset="media/dossier-nbt-1-640.webp 640w, media/dossier-nbt-1.jpg 909w" sizes="(min-width: 1000px) 30vw, 80vw" width="909" height="1287" alt="Couverture du dossier de diffusion : paysage d’estampe brumeux et montgolfière." loading="lazy" data-grand="media/dossier-nbt-1.jpg">
+            <figcaption>Dossier de diffusion, couverture.</figcaption>
+          </figure>
+          <figure class="piece">
+            <img src="media/dossier-nbt-4-640.webp" srcset="media/dossier-nbt-4-640.webp 640w, media/dossier-nbt-4.jpg 909w" sizes="(min-width: 1000px) 30vw, 80vw" width="909" height="1287" alt="Page « Distribution » du dossier : création vidéo, Pierre Weill ; production Compagnie L’Ange du Bizarre et Théâtre municipal de Sens." loading="lazy" data-grand="media/dossier-nbt-4.jpg">
+            <figcaption>Dossier de diffusion, page «&#8239;Distribution&#8239;» avec le crédit «&#8239;création vidéo&#8239;».</figcaption>
+          </figure>
+          <figure class="piece">
+            <img src="media/dossier-nbt-2-640.webp" srcset="media/dossier-nbt-2-640.webp 640w, media/dossier-nbt-2.jpg 909w" sizes="(min-width: 1000px) 30vw, 80vw" width="909" height="1287" alt="Page « Les œuvres » du dossier, avec pagode et montgolfière illustrées." loading="lazy" data-grand="media/dossier-nbt-2.jpg">
+            <figcaption>Dossier de diffusion, page «&#8239;Les œuvres&#8239;».</figcaption>
+          </figure>
+        </div>
+        <div class="etiquette-plaque">
+          <p class="plaque-ref"><span class="no">N°&nbsp;1</span> <span class="provenance">Compagnie L’Ange du Bizarre, coproduction Théâtre municipal de Sens, 2026</span></p>
+          <dl>
+            <div><dt>Pour qui</dt><dd>La compagnie L’Ange du Bizarre, pour un spectacle coproduit par le Théâtre municipal de Sens (saison 2026-2027).</dd></div>
+            <div><dt>Ce que j’ai fait</dt><dd>Les vidéos de décor projetées sur scène&nbsp;: un paysage d’estampe pour <cite>Comment Wang-Fô fut sauvé</cite> de Yourcenar, une colonnade et des ambiances pour <cite>L’Ange du Bizarre</cite> de Poe. Puis les illustrations et la mise en page du dossier de diffusion, et le teaser.</dd></div>
+            <div><dt>Livré</dt><dd>Les vidéos projetées du spectacle, le dossier de diffusion et le teaser. Crédit «&#8239;création vidéo&#8239;» au générique.</dd></div>
+          </dl>
         </div>
       </article>
 
-      <div class="grid-2">
-        <article class="project">
-          <div class="media vertical">
+      <!-- N° 2 -->
+      <article class="plaque" id="plaque-2" aria-labelledby="t2" style="--etiquette: var(--carmin); --sur-etiquette: var(--toile)">
+        <div class="plaque-tete">
+          <h3 id="t2">RAFALES</h3>
+          <ol class="passe-vues" aria-label="Pièces du projet">
+            <li><button type="button" class="vignette" aria-pressed="true"><span class="verre"><img src="media/rafales_double-page-chronox-320.webp" width="320" height="232" alt=""></span><span class="vignette-texte">Chronox</span></button></li>
+            <li><button type="button" class="vignette" aria-pressed="false"><span class="verre"><img src="media/rafales-expert_feuille-de-route-320.webp" width="320" height="160" alt=""></span><span class="vignette-texte">Feuille de route</span></button></li>
+            <li><button type="button" class="vignette" aria-pressed="false"><span class="verre"><img src="media/rafales_carte-croquis-320.webp" width="320" height="184" alt=""></span><span class="vignette-texte">Carte</span></button></li>
+          </ol>
+        </div>
+        <div class="ecran-plaque" data-projecteur>
+          <figure class="piece est-active">
+            <img src="media/rafales_double-page-chronox-1200.webp" srcset="media/rafales_double-page-chronox-640.webp 640w, media/rafales_double-page-chronox-1200.webp 1200w, media/rafales_double-page-chronox.webp 2000w" sizes="(min-width: 1000px) 60vw, 100vw" width="2000" height="1452" alt="Double page de livre : titre CHRONOX rouge brique, colonne de texte, encadré « Générateur de vents » et illustration à l’encre d’un personnage face à un tourbillon." loading="lazy" data-grand="media/rafales_double-page-chronox.webp">
+            <figcaption>Maquette de la double page «&#8239;Chronox&#8239;»&nbsp;: titrage, colonne, encadré de règles, illustration (texte provisoire).</figcaption>
+          </figure>
+          <figure class="piece">
+            <img src="media/rafales-expert_feuille-de-route-1200.webp" srcset="media/rafales-expert_feuille-de-route-640.webp 640w, media/rafales-expert_feuille-de-route-1200.webp 1200w, media/rafales-expert_feuille-de-route.webp 1897w" sizes="(min-width: 1000px) 70vw, 100vw" width="1897" height="946" alt="Feuille de route illustrée à l’encre et au pinceau pour RAFALES Expert, avec lettrage à la main et croquis de campement et de personnages." loading="lazy" data-grand="media/rafales-expert_feuille-de-route.webp">
+            <figcaption>Feuille de route de RAFALES Expert pour la communauté&nbsp;: infographie au pinceau, lettrage à la main.</figcaption>
+          </figure>
+          <figure class="piece">
+            <img src="media/rafales_carte-croquis.webp" srcset="media/rafales_carte-croquis-640.webp 640w, media/rafales_carte-croquis.webp 1253w" sizes="(min-width: 1000px) 70vw, 100vw" width="1253" height="722" alt="Croquis de carte au crayon avec annotations (camp, montagnes, villages) et zone encrée en noir et bleu." loading="lazy" data-grand="media/rafales_carte-croquis.webp">
+            <figcaption>Recherche de carte, du crayonné à l’encrage.</figcaption>
+          </figure>
+        </div>
+        <div class="etiquette-plaque">
+          <p class="plaque-ref"><span class="no">N°&nbsp;2</span> <span class="provenance">Éditions du Zyphe, depuis 2023</span></p>
+          <dl>
+            <div><dt>Pour qui</dt><dd>Les Éditions du Zyphe, que je dirige. RAFALES est l’adaptation officielle en jeu de rôle de <cite>La Horde du Contrevent</cite> d’Alain Damasio.</dd></div>
+            <div><dt>Ce que j’ai fait</dt><dd>La direction artistique, les illustrations à l’encre et au pinceau, la mise en page des livres sous InDesign, les cartes et les supports pour la communauté de joueurs.</dd></div>
+            <div><dt>Livré</dt><dd>Les maquettes de pages, la feuille de route de RAFALES Expert et les recherches de cartes présentées ici.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- N° 3 -->
+      <article class="plaque" id="plaque-3" aria-labelledby="t3" style="--etiquette: var(--veronese); --sur-etiquette: var(--toile)">
+        <div class="plaque-tete">
+          <h3 id="t3">Maleficarum</h3>
+          <ol class="passe-vues" aria-label="Pièces du projet">
+            <li><button type="button" class="vignette" aria-pressed="true"><span class="verre"><img src="media/maleficarum_inquisiteur-320.webp" width="320" height="439" alt=""></span><span class="vignette-texte">L’Inquisiteur</span></button></li>
+            <li><button type="button" class="vignette" aria-pressed="false"><span class="verre"><img src="media/maleficarum_page-malleus-320.webp" width="320" height="440" alt=""></span><span class="vignette-texte">Malleus</span></button></li>
+            <li><button type="button" class="vignette" aria-pressed="false"><span class="verre"><img src="media/maleficarum_page-fuis-320.webp" width="320" height="455" alt=""></span><span class="vignette-texte">Fuis</span></button></li>
+          </ol>
+        </div>
+        <div class="ecran-plaque" data-projecteur>
+          <figure class="piece est-active">
+            <img src="media/maleficarum_inquisiteur-1200.webp" srcset="media/maleficarum_inquisiteur-640.webp 640w, media/maleficarum_inquisiteur-1200.webp 1200w, media/maleficarum_inquisiteur.webp 1398w" sizes="(min-width: 1000px) 32vw, 90vw" width="1398" height="1920" alt="Silhouette d’inquisiteur vert d’eau tenant une torche, se dissolvant en grain vers le bas, un minuscule personnage à ses pieds." loading="lazy" data-grand="media/maleficarum_inquisiteur.webp">
+            <figcaption>L’Inquisiteur.</figcaption>
+          </figure>
+          <figure class="piece">
+            <img src="media/maleficarum_page-malleus.webp" srcset="media/maleficarum_page-malleus-320.webp 320w, media/maleficarum_page-malleus.webp 646w" sizes="(min-width: 1000px) 32vw, 90vw" width="646" height="888" alt="Page illustrée : gibet, croix et champignon vert d’eau sur une colline, citation du Malleus Maleficarum en lettres gothiques." loading="lazy" data-grand="media/maleficarum_page-malleus.webp">
+            <figcaption>Page «&#8239;Malleus Maleficarum&#8239;», question&nbsp;XII.</figcaption>
+          </figure>
+          <figure class="piece">
+            <img src="media/maleficarum_page-fuis.webp" srcset="media/maleficarum_page-fuis-320.webp 320w, media/maleficarum_page-fuis.webp 522w" sizes="(min-width: 1000px) 32vw, 90vw" width="522" height="742" alt="Page d’introduction : chemin typographique « Fais toi discrète, écoute aux portes, suis la rumeur, fuis » sur fond d’alphabet inventé." loading="lazy" data-grand="media/maleficarum_page-fuis.webp">
+            <figcaption>Page d’introduction «&#8239;Fuis&#8239;», sur un alphabet inventé.</figcaption>
+          </figure>
+        </div>
+        <div class="etiquette-plaque">
+          <p class="plaque-ref"><span class="no">N°&nbsp;3</span> <span class="provenance">Éditions du Zyphe</span></p>
+          <dl>
+            <div><dt>Pour qui</dt><dd>Les Éditions du Zyphe.</dd></div>
+            <div><dt>Ce que j’ai fait</dt><dd>Une direction artistique en deux encres, vert d’eau et noir&nbsp;: illustrations au grain, typographie gothique et lettrines, et un alphabet inventé pour les pages d’introduction.</dd></div>
+            <div><dt>Livré</dt><dd>L’illustration de l’Inquisiteur et les pages illustrées présentées ici.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- N° 4 -->
+      <article class="plaque plaque-verticale" id="plaque-4" aria-labelledby="t4" style="--etiquette: var(--chrome); --sur-etiquette: var(--noir)">
+        <div class="plaque-tete">
+          <h3 id="t4">«&#8239;Garçon la note&#8239;!&#8239;» × Sens Intense</h3>
+        </div>
+        <div class="ecran-plaque">
+          <figure class="piece est-active">
             <video controls preload="none" poster="media/garcon-la-note-poster.jpg" width="1080" height="1920">
               <source src="media/garcon-la-note.mp4" type="video/mp4">
             </video>
-          </div>
-          <div class="desc">
-            <h3>« Garçon la note ! » × Sens Intense</h3>
-            <p class="meta">Annonce de concerts · été 2024 · format vertical 9:16</p>
-            <p>Charte graphique et motion design : typographie animée, photos d'artistes détourées en bichromie, transitions géométriques, pensé pour les réseaux sociaux.</p>
-            <ul class="tags"><li>Motion design</li><li>Charte graphique</li><li>After Effects</li></ul>
-          </div>
-        </article>
-
-        <article class="project">
-          <div class="media">
-            <button class="yt" data-yt="mOe7fQPJRLs" aria-label="Lire le teaser de La Fresque (YouTube)">
-              <img src="media/la-fresque-poster.jpg" width="480" height="360" alt="Logo de La Fresque, Sens au Moyen Âge, composé de pictogrammes médiévaux colorés.">
-              <span class="play" aria-hidden="true">▶</span>
-            </button>
-          </div>
-          <div class="desc">
-            <h3>La Fresque — Sens au Moyen Âge</h3>
-            <p class="meta">Teaser de spectacle historique</p>
-            <p>Réalisation, montage et motion design : carte animée de l'Yonne, typographie ancienne, pictogrammes médiévaux mis en mouvement.</p>
-            <ul class="tags"><li>Réalisation</li><li>Montage</li><li>Motion design</li></ul>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- ========== ILLUSTRATION ========== -->
-    <section id="illustration" class="block">
-      <header class="block-head">
-        <p class="num">II</p>
-        <h2>Illustration</h2>
-        <p class="block-sub">Dessin numérique sur tablette, sans IA : encre, pinceau sec, grain et pointillisme.</p>
-      </header>
-
-      <div class="gallery">
-        <figure class="g-wide">
-          <a href="media/illustration_etoffe-des-galeres.webp" class="zoom"><img loading="lazy" src="media/illustration_etoffe-des-galeres.webp" width="2000" height="1349" alt="Collage éditorial : livre ouvert, dé, calculatrice et crayon, texte gothique « Nous sommes faits de l'étoffe dont sont faites les galères »."></a>
-          <figcaption><strong>L'étoffe des galères</strong> — illustration éditoriale, collage et trame</figcaption>
-        </figure>
-        <figure>
-          <a href="media/maleficarum_page-malleus.webp" class="zoom"><img loading="lazy" src="media/maleficarum_page-malleus.webp" width="646" height="888" alt="Page illustrée : gibet, croix et champignon vert d'eau sur une colline, citation du Malleus Maleficarum en lettres gothiques."></a>
-          <figcaption><strong>Maleficarum</strong> — question XII</figcaption>
-        </figure>
-        <figure class="g-wide">
-          <a href="media/rafales-expert_feuille-de-route.webp" class="zoom"><img loading="lazy" src="media/rafales-expert_feuille-de-route.webp" width="1897" height="946" alt="Feuille de route illustrée à l'encre et au pinceau pour RAFALES Expert, avec lettrage à la main et croquis de campement et de personnages."></a>
-          <figcaption><strong>RAFALES Expert</strong> — feuille de route illustrée</figcaption>
-        </figure>
-        <figure>
-          <a href="media/rafales_carte-croquis.webp" class="zoom"><img loading="lazy" src="media/rafales_carte-croquis.webp" width="1253" height="722" alt="Croquis de carte au crayon avec annotations (camp, montagnes, villages) et zone encrée en noir et bleu."></a>
-          <figcaption><strong>RAFALES</strong> — recherche de carte, du crayonné à l'encrage</figcaption>
-        </figure>
-      </div>
-
-      <h3 class="series-title">Cosmos <span>— série en pointillisme numérique</span></h3>
-      <div class="series">
-        <a href="media/cosmos-01_trou-noir.webp" class="zoom"><img loading="lazy" src="media/cosmos-01_trou-noir.webp" width="880" height="866" alt="Trou noir dessiné en traits blancs texturés sur fond noir."></a>
-        <a href="media/cosmos-02_nebuleuse.webp" class="zoom"><img loading="lazy" src="media/cosmos-02_nebuleuse.webp" width="839" height="846" alt="Nébuleuse en pointillisme blanc autour d'une étoile brillante."></a>
-        <a href="media/cosmos-03_vortex.webp" class="zoom"><img loading="lazy" src="media/cosmos-03_vortex.webp" width="849" height="744" alt="Vortex lumineux entouré d'un anneau de particules."></a>
-        <a href="media/cosmos-04_planche-etudes.webp" class="zoom"><img loading="lazy" src="media/cosmos-04_planche-etudes.webp" width="675" height="597" alt="Planche d'études : disques et comètes en pointillisme, avec annotations de cadrage."></a>
-      </div>
-    </section>
-
-    <!-- ========== MISE EN PAGE ========== -->
-    <section id="mise-en-page" class="block">
-      <header class="block-head">
-        <p class="num">III</p>
-        <h2>Mise en page &amp; édition</h2>
-        <p class="block-sub">Livres de jeu, typographie, dossiers de diffusion : InDesign et HTML.</p>
-      </header>
-
-      <figure class="spread">
-        <a href="media/rafales_double-page-chronox.webp" class="zoom"><img loading="lazy" src="media/rafales_double-page-chronox.webp" width="2000" height="1452" alt="Double page de livre : titre CHRONOX rouge brique, colonne de texte, encadré « Générateur de vents » et illustration à l'encre d'un personnage face à un tourbillon."></a>
-        <figcaption><strong>RAFALES</strong> — maquette de double page « Chronox » (illustration, titrage, encadré de règles)</figcaption>
-      </figure>
-
-      <div class="gallery pages">
-        <figure>
-          <a href="media/maleficarum_page-fuis.webp" class="zoom"><img loading="lazy" src="media/maleficarum_page-fuis.webp" width="522" height="742" alt="Page d'introduction : chemin typographique « Fais toi discrète, écoute aux portes, suis la rumeur, fuis » sur fond d'alphabet inventé."></a>
-          <figcaption><strong>Maleficarum</strong> — page d'introduction, alphabet inventé</figcaption>
-        </figure>
-        <figure>
-          <a href="media/dossier-nbt-1.jpg" class="zoom"><img loading="lazy" src="media/dossier-nbt-1.jpg" width="909" height="1286" alt="Couverture du dossier de diffusion Nouvelles Bien Tempérées : paysage d'estampe brumeux et montgolfière."></a>
-          <figcaption><strong>Nouvelles Bien Tempérées</strong> — dossier de diffusion (couverture)</figcaption>
-        </figure>
-        <figure>
-          <a href="media/dossier-nbt-2.jpg" class="zoom"><img loading="lazy" src="media/dossier-nbt-2.jpg" width="909" height="1286" alt="Page « Les œuvres » du dossier de diffusion, avec pagode et montgolfière illustrées."></a>
-          <figcaption>Dossier de diffusion — « Les œuvres »</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- ========== WEB ========== -->
-    <section id="web" class="block web">
-      <header class="block-head">
-        <p class="num">IV</p>
-        <h2>Web</h2>
-      </header>
-      <p class="web-text"><a href="https://www.zyphe.fr" rel="noopener">zyphe.fr</a> : site et boutique des Éditions du Zyphe, conçus et développés avec des outils d'IA, comme ce portfolio.</p>
-    </section>
-
-    <!-- ========== À PROPOS ========== -->
-    <section id="apropos" class="block about">
-      <header class="block-head">
-        <p class="num">V</p>
-        <h2>À propos</h2>
-      </header>
-      <div class="about-cols">
-        <div>
-          <p>Diplômé en cinéma-audiovisuel (Université Sorbonne Nouvelle) et en biens culturels (Università di Roma Tor Vergata), je dirige depuis 2023 les <strong>Éditions du Zyphe</strong>, qui publient <strong>RAFALES</strong>, l'adaptation officielle en jeu de rôle de <em>La Horde du Contrevent</em> d'Alain Damasio. J'y illustre, mets en page et conçois la communication.</p>
-          <p>En parallèle, je réalise en freelance des créations vidéo pour le spectacle vivant et du motion design pour des événements culturels.</p>
+            <figcaption>Vidéo verticale de 24&nbsp;secondes, au format&nbsp;9:16.</figcaption>
+          </figure>
         </div>
-        <ul class="facts">
-          <li><span>Outils</span>Photoshop, Illustrator, InDesign, Premiere Pro, After Effects, DaVinci Resolve</li>
-          <li><span>Langues</span>Français, anglais courant, italien intermédiaire</li>
-          <li><span>Disponibilité</span>Immédiate · télétravail ou France entière · CDI, CDD, freelance</li>
-        </ul>
+        <div class="etiquette-plaque">
+          <p class="plaque-ref"><span class="no">N°&nbsp;4</span> <span class="provenance">Sens Intense, annonce de concerts, été 2024</span></p>
+          <dl>
+            <div><dt>Pour qui</dt><dd>Sens Intense, pour annoncer sur les réseaux sociaux les concerts «&#8239;Garçon la note&#8239;!&#8239;» de l’été 2024.</dd></div>
+            <div><dt>Ce que j’ai fait</dt><dd>La charte graphique et le motion design&nbsp;: typographie animée, photos d’artistes détourées en bichromie, transitions géométriques.</dd></div>
+            <div><dt>Livré</dt><dd>Une vidéo verticale de 24&nbsp;secondes au format&nbsp;9:16, pensée pour les réseaux sociaux.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- N° 5 -->
+      <article class="plaque" id="plaque-5" aria-labelledby="t5" style="--etiquette: var(--carmin); --sur-etiquette: var(--toile)">
+        <div class="plaque-tete">
+          <h3 id="t5">La Fresque, Sens au Moyen Âge</h3>
+          <ol class="passe-vues" aria-label="Pièces du projet">
+            <li><button type="button" class="vignette" aria-pressed="true"><span class="verre"><img src="media/la-fresque_titre.webp" width="480" height="243" alt=""></span><span class="vignette-texte">Teaser</span></button></li>
+            <li><button type="button" class="vignette" aria-pressed="false"><span class="verre"><img src="media/la-fresque_carte.webp" width="480" height="270" alt=""></span><span class="vignette-texte">Carte</span></button></li>
+            <li><button type="button" class="vignette" aria-pressed="false"><span class="verre"><img src="media/la-fresque_pictogrammes.webp" width="480" height="270" alt=""></span><span class="vignette-texte">Pictogrammes</span></button></li>
+            <li><button type="button" class="vignette" aria-pressed="false"><span class="verre"><img src="media/la-fresque_logo.webp" width="480" height="270" alt=""></span><span class="vignette-texte">Logo</span></button></li>
+          </ol>
+        </div>
+        <div class="ecran-plaque ecran-petit" data-projecteur>
+          <figure class="piece est-active">
+            <div class="yt-cadre">
+              <button type="button" class="yt" data-yt="mOe7fQPJRLs" aria-label="Lire le teaser de La Fresque sur YouTube">
+                <img src="media/la-fresque_titre.webp" width="480" height="243" alt="">
+                <span class="yt-lire"><svg><use href="#i-lire"/></svg>Lire le teaser</span>
+              </button>
+            </div>
+            <figcaption>Le teaser, hébergé sur YouTube (chargé seulement au clic).</figcaption>
+          </figure>
+          <figure class="piece">
+            <img src="media/la-fresque_carte.webp" width="480" height="270" alt="Plan du teaser : carte de l’Yonne aux rivières bleu nuit, étiquette « Villeneuve-sur-Yonne, mardi 8 octobre »." loading="lazy">
+            <figcaption>Carte animée de l’Yonne.</figcaption>
+          </figure>
+          <figure class="piece">
+            <img src="media/la-fresque_pictogrammes.webp" width="480" height="270" alt="Plan du teaser : pictogrammes médiévaux blancs (fleur de lys, tour, spirale) qui s’assemblent sur fond noir." loading="lazy">
+            <figcaption>Pictogrammes médiévaux mis en mouvement.</figcaption>
+          </figure>
+          <figure class="piece">
+            <img src="media/la-fresque_logo.webp" width="480" height="270" alt="Logo de La Fresque, Sens au Moyen Âge, composé de pictogrammes médiévaux colorés." loading="lazy">
+            <figcaption>Le logo en fin de teaser.</figcaption>
+          </figure>
+        </div>
+        <div class="etiquette-plaque">
+          <p class="plaque-ref"><span class="no">N°&nbsp;5</span> <span class="provenance">Arum Diffusion, teaser de spectacle historique, 2024</span></p>
+          <dl>
+            <div><dt>Pour qui</dt><dd>Arum Diffusion, pour le spectacle historique «&#8239;La Fresque, Sens au Moyen Âge&#8239;» (2024).</dd></div>
+            <div><dt>Ce que j’ai fait</dt><dd>La réalisation, le montage et le motion design&nbsp;: une carte animée de l’Yonne, une typographie ancienne et des pictogrammes médiévaux mis en mouvement.</dd></div>
+            <div><dt>Livré</dt><dd>Le teaser du spectacle historique «&#8239;Sens au Moyen Âge&#8239;».</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- N° 6 -->
+      <article class="plaque plaque-large" id="plaque-6" aria-labelledby="t6" style="--etiquette: var(--chrome); --sur-etiquette: var(--noir)">
+        <div class="plaque-tete">
+          <h3 id="t6">L’étoffe des galères</h3>
+        </div>
+        <div class="ecran-plaque" data-projecteur>
+          <figure class="piece est-active">
+            <img src="media/illustration_etoffe-des-galeres-1200.webp" srcset="media/illustration_etoffe-des-galeres-640.webp 640w, media/illustration_etoffe-des-galeres-1200.webp 1200w, media/illustration_etoffe-des-galeres.webp 2000w" sizes="(min-width: 1000px) 80vw, 100vw" width="2000" height="1349" alt="Collage éditorial : livre ouvert, dé, calculatrice et crayon, texte gothique « Nous sommes faits de l’étoffe dont sont faites les galères »." loading="lazy" data-grand="media/illustration_etoffe-des-galeres.webp">
+            <figcaption>«&#8239;Nous sommes faits de l’étoffe dont sont faites les galères&#8239;».</figcaption>
+          </figure>
+        </div>
+        <div class="etiquette-plaque">
+          <p class="plaque-ref"><span class="no">N°&nbsp;6</span> <span class="provenance">Éditions du Zyphe, illustration éditoriale</span></p>
+          <dl>
+            <div><dt>Pour qui</dt><dd>Les Éditions du Zyphe.</dd></div>
+            <div><dt>Ce que j’ai fait</dt><dd>Collage, trame de points et lettrage gothique&nbsp;: une parodie de Shakespeare sur la réalité de l’édition indépendante.</dd></div>
+            <div><dt>Livré</dt><dd>Une illustration éditoriale.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- N° 7 -->
+      <article class="plaque" id="plaque-7" aria-labelledby="t7" style="--etiquette: var(--prusse); --sur-etiquette: var(--toile)">
+        <div class="plaque-tete">
+          <h3 id="t7">Cosmos</h3>
+          <ol class="passe-vues" aria-label="Pièces de la série">
+            <li><button type="button" class="vignette" aria-pressed="true"><span class="verre"><img src="media/cosmos-01_trou-noir-320.webp" width="320" height="315" alt=""></span><span class="vignette-texte">Trou noir</span></button></li>
+            <li><button type="button" class="vignette" aria-pressed="false"><span class="verre"><img src="media/cosmos-02_nebuleuse-320.webp" width="320" height="323" alt=""></span><span class="vignette-texte">Nébuleuse</span></button></li>
+            <li><button type="button" class="vignette" aria-pressed="false"><span class="verre"><img src="media/cosmos-03_vortex-320.webp" width="320" height="280" alt=""></span><span class="vignette-texte">Vortex</span></button></li>
+            <li><button type="button" class="vignette" aria-pressed="false"><span class="verre"><img src="media/cosmos-04_planche-etudes-320.webp" width="320" height="283" alt=""></span><span class="vignette-texte">Études</span></button></li>
+          </ol>
+        </div>
+        <div class="ecran-plaque" data-projecteur>
+          <figure class="piece est-active">
+            <img src="media/cosmos-01_trou-noir.webp" srcset="media/cosmos-01_trou-noir-640.webp 640w, media/cosmos-01_trou-noir.webp 880w" sizes="(min-width: 1000px) 40vw, 90vw" width="880" height="866" alt="Trou noir dessiné en traits blancs texturés sur fond noir." loading="lazy" data-grand="media/cosmos-01_trou-noir.webp">
+            <figcaption>Trou noir.</figcaption>
+          </figure>
+          <figure class="piece">
+            <img src="media/cosmos-02_nebuleuse.webp" srcset="media/cosmos-02_nebuleuse-640.webp 640w, media/cosmos-02_nebuleuse.webp 839w" sizes="(min-width: 1000px) 40vw, 90vw" width="839" height="846" alt="Nébuleuse en pointillisme blanc autour d’une étoile brillante." loading="lazy" data-grand="media/cosmos-02_nebuleuse.webp">
+            <figcaption>Nébuleuse.</figcaption>
+          </figure>
+          <figure class="piece">
+            <img src="media/cosmos-03_vortex.webp" srcset="media/cosmos-03_vortex-640.webp 640w, media/cosmos-03_vortex.webp 849w" sizes="(min-width: 1000px) 40vw, 90vw" width="849" height="744" alt="Vortex lumineux entouré d’un anneau de particules." loading="lazy" data-grand="media/cosmos-03_vortex.webp">
+            <figcaption>Vortex.</figcaption>
+          </figure>
+          <figure class="piece">
+            <img src="media/cosmos-04_planche-etudes.webp" width="675" height="597" alt="Planche d’études : disques et comètes en pointillisme, avec annotations de cadrage." loading="lazy" data-grand="media/cosmos-04_planche-etudes.webp">
+            <figcaption>Planche d’études, avec annotations de cadrage.</figcaption>
+          </figure>
+        </div>
+        <div class="etiquette-plaque">
+          <p class="plaque-ref"><span class="no">N°&nbsp;7</span> <span class="provenance">Éditions du Zyphe, série en pointillisme numérique</span></p>
+          <dl>
+            <div><dt>Pour qui</dt><dd>Les Éditions du Zyphe.</dd></div>
+            <div><dt>Ce que j’ai fait</dt><dd>Chaque image est construite point par point sur tablette, comme une gravure au pointillé.</dd></div>
+            <div><dt>Livré</dt><dd>Une série de quatre pièces&nbsp;: trou noir, nébuleuse, vortex et planche d’études.</dd></div>
+          </dl>
+        </div>
+      </article>
+    </div>
+
+    <!-- ========== À propos ========== -->
+    <section id="apropos" class="apropos" aria-labelledby="t-apropos">
+      <h2 id="t-apropos">À propos</h2>
+      <div class="apropos-texte">
+        <p>Diplômé en cinéma-audiovisuel (Université Sorbonne Nouvelle) et en biens culturels (Università di Roma Tor Vergata), je dirige depuis 2023 les <a href="https://www.zyphe.fr" rel="noopener">Éditions du Zyphe</a>, qui publient RAFALES. J’y illustre, je mets en page et je conçois la communication.</p>
+        <p>En parallèle, je crée en freelance des vidéos pour le spectacle vivant et du motion design pour des événements culturels.</p>
+        <p class="garantie">Mes illustrations sont dessinées à la main sur tablette, sans IA générative. Le site <a href="https://www.zyphe.fr" rel="noopener">zyphe.fr</a> et ce portfolio, eux, sont conçus avec des outils d’IA.</p>
       </div>
+      <dl class="faits">
+        <div><dt>Outils</dt><dd>Photoshop, Illustrator, InDesign, Premiere Pro, After Effects, DaVinci Resolve</dd></div>
+        <div><dt>Langues</dt><dd>Français, anglais courant, italien intermédiaire</dd></div>
+        <div><dt>Disponibilité</dt><dd>Immédiate, en télétravail ou partout en France. Missions freelance, CDI ou CDD.</dd></div>
+      </dl>
     </section>
 
-    <section id="contact" class="block contact">
-      <h2>Travaillons ensemble</h2>
-      <p>Une affiche, une identité, un teaser, une vidéo de scène ou un livre à mettre en page ?</p>
-      <p class="contact-links">
-        <a class="btn" href="mailto:weill.pierre.perso@gmail.com">weill.pierre.perso@gmail.com</a>
-      </p>
+    <!-- ========== Contact ========== -->
+    <section id="contact" class="contact" aria-labelledby="t-contact">
+      <div class="contact-dedans">
+        <h2 id="t-contact">Un spectacle, un livre, une affiche à faire voir&#8239;?</h2>
+        <p>Décor vidéo, teaser, motion, affiche, identité ou livre à mettre en page&nbsp;: décrivez votre projet en quelques lignes.</p>
+        <p class="contact-adresse"><a class="adresse" href="mailto:weill.pierre.perso@gmail.com?subject=Projet">weill.pierre.perso@gmail.com</a></p>
+      </div>
     </section>
   </main>
 
-  <footer class="foot">
-    <p>© <span id="y">2026</span> Pierre Weill — Toutes les illustrations sont dessinées par l'auteur sur tablette, sans IA générative.</p>
+  <footer class="pied">
+    <p>© <span data-annee>2026</span> Pierre Weill. Illustrations dessinées à la main, sans IA générative.</p>
   </footer>
 
-  <dialog id="lightbox" aria-label="Agrandissement">
-    <button class="close" aria-label="Fermer">×</button>
-    <img alt="">
+  <dialog class="salle" aria-label="Projection en grand">
+    <figure class="salle-figure">
+      <figcaption></figcaption>
+    </figure>
+    <div class="salle-commandes">
+      <button type="button" class="commande" data-salle-prec><svg><use href="#i-prec"/></svg><span class="lecteur">Pièce précédente</span></button>
+      <button type="button" class="commande" data-salle-suiv><svg><use href="#i-suiv"/></svg><span class="lecteur">Pièce suivante</span></button>
+      <button type="button" class="commande" data-salle-fermer><svg><use href="#i-fermer"/></svg><span class="lecteur">Rallumer la salle (fermer)</span></button>
+    </div>
   </dialog>
 
   <script src="script.js" defer></script>
