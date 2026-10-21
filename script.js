@@ -1,5 +1,5 @@
 // Portfolio de Pierre Weill — séance de lanterne magique
-document.documentElement.classList.add('js');
+document.documentElement.classList.add('js', 'mise-en-place');
 
 const mouvementReduit = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -198,8 +198,12 @@ document.querySelectorAll('.plaque').forEach((plaque) => {
   plaque.addEventListener('plaque:change', mesurer);
   mesurer();
 });
-// arrivée directe sur une ancre (#plaque-6) : se recaler une fois la page chargée
-window.addEventListener('load', () => { if (location.hash) document.querySelector(location.hash)?.scrollIntoView({ behavior: 'instant' }); });
+// arrivée directe sur une ancre (#plaque-6) : se recaler une fois la page chargée,
+// puis rendre aux étiquettes leur glissement
+window.addEventListener('load', () => {
+  if (location.hash) document.querySelector(location.hash)?.scrollIntoView({ behavior: 'instant' });
+  requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.remove('mise-en-place')));
+});
 
 // ---------- La salle : projection en grand, la salle s'éteint ----------
 const salle = document.querySelector('.salle');
