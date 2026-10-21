@@ -31,16 +31,21 @@ if (seance) {
     ancienne.classList.remove('est-active');
     vue.classList.add('est-active');
     lireVideo(ancienne, false);
+    // une vue filmée reprend sa séquence au début à chaque passage
+    const video = vue.querySelector('video');
+    if (video) video.currentTime = 0;
     lireVideo(vue, !enPause);
     compteur.textContent = `${courante + 1} / ${vues.length}`;
     legende.textContent = vue.dataset.legende;
     legende.href = vue.dataset.lien;
   };
 
-  const arreter = () => { clearInterval(minuterie); minuterie = null; };
+  // une vue filmée reste le temps de sa séquence (data-duree, en ms)
+  const duree = (vue) => Number(vue.dataset.duree) || DUREE;
+  const arreter = () => { clearTimeout(minuterie); minuterie = null; };
   const relancer = () => {
     arreter();
-    if (!enPause) minuterie = setInterval(() => montrer(courante + 1), DUREE);
+    if (!enPause) minuterie = setTimeout(() => { montrer(courante + 1); relancer(); }, duree(vues[courante]));
   };
   const basculerPause = (pause) => {
     enPause = pause;
