@@ -109,6 +109,9 @@ document.querySelectorAll('[data-projecteur]').forEach((ecran) => {
     boutons[i]?.setAttribute('aria-pressed', 'true');
     courante = i;
     majAgrandir();
+    // un plan animé muet (boucle) se lance quand on le projette
+    const boucle = pieces[i].querySelector('video[data-boucle]');
+    if (boucle && !mouvementReduit.matches) boucle.play().catch(() => {});
     ecran.closest('.plaque').dispatchEvent(new Event('plaque:change'));
   };
   boutons.forEach((b, i) => b.addEventListener('click', () => projeter(i)));

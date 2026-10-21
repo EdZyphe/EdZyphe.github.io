@@ -251,7 +251,7 @@ h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -
 .piece { margin: 0; display: grid; justify-items: center; gap: 12px; min-width: 0; max-width: 100%; }
 .piece img, .piece video { max-width: 100%; max-height: calc(var(--ecran-h) - 150px); width: auto; height: auto; border-radius: var(--coin); }
 .piece figcaption { display: flex; align-items: center; justify-content: center; gap: 12px; max-width: 70ch; text-align: center; color: var(--gris); font-size: 0.95rem; line-height: 1.45; }
-.ecran-petit .piece img { max-width: min(100%, 560px); width: 100%; }
+.ecran-petit .piece :is(img, video) { max-width: min(100%, 560px); width: 100%; }
 .agrandir { flex: none; width: 36px; height: 36px; }
 .agrandir svg { width: 18px; height: 18px; }
 
@@ -283,7 +283,7 @@ h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -
   padding: 0; border: 0; border-radius: var(--coin); overflow: hidden;
   background: var(--noir); cursor: pointer;
 }
-.yt img { width: 100%; height: 100%; object-fit: cover; }
+.yt img { width: 100%; height: 100%; object-fit: contain; }
 .yt-lire {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
   display: inline-flex; align-items: center; gap: 8px;
