@@ -305,6 +305,13 @@ h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -
 .vignette-texte { font-size: 0.85rem; line-height: 1.25; }
 .vignette:hover .verre { transform: translateY(-3px); }
 .vignette { transition: opacity 0.25s ease-out; }
+/* travail en cours (maquette non finalisée) : marqué comme une épreuve */
+.en-cours {
+  display: inline-block; padding: 0 6px;
+  border: 1.5px dashed currentColor; border-radius: 3px;
+  font: italic 600 0.86rem/1.4 var(--besley); white-space: nowrap;
+}
+.vignette-texte .en-cours { display: block; width: fit-content; margin: 3px auto 0; }
 .vignette.est-hors-filtre { opacity: 0.35; }
 .vignette[aria-pressed="true"] .verre { transform: translateY(-5px); outline: 3px solid var(--etiquette); outline-offset: 3px; }
 .vignette[aria-pressed="true"] .vignette-texte { font-weight: 700; }
@@ -385,22 +392,16 @@ h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -
   .js [data-projecteur].ecran-plaque { height: auto; display: block; }
   .piece img, .piece video { max-height: 64svh; }
   .js [data-projecteur] .piece:not(.est-active) { position: absolute; inset: 32px 16px auto; }
-  .passe-vues { flex-wrap: nowrap; overflow-x: auto; width: 100%; padding: 6px 2px 10px; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; }
-  .passe-vues li { scroll-snap-align: start; flex: none; }
+  .passe-vues { width: 100%; padding: 6px 0 4px; gap: 12px 10px; }
   .plaque-tete { margin-bottom: 4px; }
   .offre { max-width: 40ch; }
   .legende-seance { max-width: 48ch; min-height: 0; }
-  .boite ol {
-    grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 116px;
-    overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
-    padding: 6px 2px 14px;
-  }
-  .boite li { scroll-snap-align: start; }
+  /* en mobile, l'index est une grille (pas de défilement horizontal) */
+  .boite ol { grid-auto-flow: row; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 16px 10px; }
   .apropos { grid-template-columns: minmax(0, 1fr); grid-template-areas: "titre" "texte" "faits"; }
   .boite { grid-template-columns: minmax(0, 1fr); gap: 18px; }
   .carton { grid-template-columns: minmax(0, 1fr); padding: 28px 24px; }
-  .filtre { position: static; flex-wrap: nowrap; overflow-x: auto; padding: 8px 2px 10px; }
-  .filtre-choix { flex: none; }
+  .filtre { position: static; padding: 8px 0 10px; }
 }
 @media (max-width: 560px) {
   :root { --bandeau: 56px; --coin: 10px; }
