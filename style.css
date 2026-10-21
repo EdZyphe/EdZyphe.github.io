@@ -35,7 +35,6 @@
 
 :root {
   --toile: #EDF0F1;
-  --toile-claire: #FAFBFB;
   --noir: #000;
   --gris: #5B6166;
   --carmin: #A8173F;
@@ -421,6 +420,6 @@ h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .vue, .vue.est-active { transition: none; }
-  .verre, .commande, .bouton, .etiquette-plaque { transition: none; }
+  .verre, .commande, .bouton, .etiquette-plaque, .monture, .vignette, .filtre-choix { transition: none; }
   .salle[open]::backdrop { animation: none; }
 }
