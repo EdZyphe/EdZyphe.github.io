@@ -112,23 +112,94 @@ document.querySelectorAll('[data-projecteur]').forEach((ecran) => {
     ecran.closest('.plaque').dispatchEvent(new Event('plaque:change'));
   };
   boutons.forEach((b, i) => b.addEventListener('click', () => projeter(i)));
+  // le filtre par métier demande de projeter une autre pièce
+  ecran.closest('.plaque').addEventListener('plaque:projeter', (e) => projeter(e.detail));
   majAgrandir();
   agrandir.addEventListener('click', () => ouvrirSalle(pieces, courante, projeter, agrandir));
 });
+
+// ---------- Filtre par métier ----------
+const filtre = document.querySelector('.filtre');
+if (filtre) {
+  const choix = [...filtre.querySelectorAll('.filtre-choix')];
+  const plaques = [...document.querySelectorAll('.plaque')];
+  const etat = document.createElement('span');
+  etat.className = 'lecteur';
+  etat.setAttribute('aria-live', 'polite');
+  filtre.append(etat);
+  const correspond = (piece, metier) => !metier || piece.dataset.metiers.split(' ').includes(metier);
+
+  const filtrer = (metier) => {
+    choix.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.metier === metier)));
+    let visibles = 0;
+    plaques.forEach((plaque) => {
+      const pieces = [...plaque.querySelectorAll('.piece')];
+      const ok = pieces.some((p) => correspond(p, metier));
+      plaque.hidden = !ok;
+      document.querySelector(`.boite a[href="#${plaque.id}"]`)?.classList.toggle('est-hors-filtre', !ok);
+      if (!ok) return;
+      visibles += 1;
+      const vignettes = [...plaque.querySelectorAll('.vignette')];
+      pieces.forEach((p, i) => vignettes[i]?.classList.toggle('est-hors-filtre', !correspond(p, metier)));
+      const active = pieces.findIndex((p) => p.classList.contains('est-active'));
+      if (!correspond(pieces[active], metier)) {
+        plaque.dispatchEvent(new CustomEvent('plaque:projeter', { detail: pieces.findIndex((p) => correspond(p, metier)) }));
+      }
+    });
+    document.querySelectorAll('.chapitre').forEach((ch) => {
+      ch.hidden = ![...ch.querySelectorAll('.plaque')].some((p) => !p.hidden);
+    });
+    etat.textContent = `${visibles} projet${visibles > 1 ? 's' : ''} affiché${visibles > 1 ? 's' : ''}`;
+    const url = new URL(location.href);
+    if (metier) url.searchParams.set('metier', metier); else url.searchParams.delete('metier');
+    history.replaceState(null, '', url);
+  };
+
+  choix.forEach((c) => c.addEventListener('click', () => filtrer(c.dataset.metier)));
+  // une monture grisée par le filtre ramène à « Tout » pour que le lien mène quelque part
+  document.querySelectorAll('.boite a[href^="#plaque-"]').forEach((a) => a.addEventListener('click', (e) => {
+    const cible = document.querySelector(a.getAttribute('href'));
+    if (!cible?.hidden) return;
+    e.preventDefault();
+    filtrer('');
+    history.pushState(null, '', a.getAttribute('href'));
+    requestAnimationFrame(() => {
+      cible.scrollIntoView({ behavior: mouvementReduit.matches ? 'instant' : 'smooth' });
+      // les plaques réaffichées changent la hauteur de la page pendant le défilement : on se recale à l'arrivée
+      const recaler = () => cible.scrollIntoView({ behavior: 'instant' });
+      if ('onscrollend' in window) window.addEventListener('scrollend', recaler, { once: true });
+      else setTimeout(recaler, 900);
+    });
+  }));
+  filtre.hidden = false;
+  const demande = new URLSearchParams(location.search).get('metier') ?? '';
+  if (choix.some((c) => c.dataset.metier === demande) && demande) filtrer(demande);
+}
 
 // ---------- Étiquettes : jamais plus larges que l'œuvre projetée ----------
 document.querySelectorAll('.plaque').forEach((plaque) => {
   const mesurer = () => {
     const media = plaque.querySelector('.piece.est-active :is(img, video, .yt-cadre)');
-    const largeur = media ? Math.round(media.getBoundingClientRect().width) : 0;
-    // image pas encore chargée (chargement différé) : l'étiquette garde la largeur de l'écran
-    if (largeur > 120) plaque.style.setProperty('--largeur-oeuvre', `${largeur}px`);
+    let largeur = media ? media.getBoundingClientRect().width : 0;
+    // image pas encore chargée (chargement différé) : largeur calculée depuis ses dimensions
+    // déclarées, pour que la page ne bouge pas quand l'image arrive
+    if (largeur < 120 && media?.getAttribute('width')) {
+      const ecran = plaque.querySelector('.ecran-plaque');
+      const dispo = ecran.clientWidth - parseFloat(getComputedStyle(ecran).paddingLeft) * 2;
+      const w = +media.getAttribute('width'), h = +media.getAttribute('height');
+      const maxH = parseFloat(getComputedStyle(media).maxHeight) || h;
+      largeur = Math.min(dispo, w, w * (maxH / h));
+    }
+    if (largeur > 120) plaque.style.setProperty('--largeur-oeuvre', `${Math.round(largeur)}px`);
     else plaque.style.removeProperty('--largeur-oeuvre');
   };
   const observateur = new ResizeObserver(mesurer);
   plaque.querySelectorAll('.piece :is(img, video, .yt-cadre)').forEach((m) => observateur.observe(m));
   plaque.addEventListener('plaque:change', mesurer);
+  mesurer();
 });
+// arrivée directe sur une ancre (#plaque-6) : se recaler une fois la page chargée
+window.addEventListener('load', () => { if (location.hash) document.querySelector(location.hash)?.scrollIntoView({ behavior: 'instant' }); });
 
 // ---------- La salle : projection en grand, la salle s'éteint ----------
 const salle = document.querySelector('.salle');

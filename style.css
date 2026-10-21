@@ -56,7 +56,7 @@
 [hidden] { display: none !important; }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--bandeau) + 16px);
+  scroll-padding-top: calc(var(--bandeau) + 76px);
   scrollbar-color: var(--noir) var(--toile);
   accent-color: var(--carmin);
   -webkit-text-size-adjust: 100%;
@@ -145,7 +145,7 @@ button { font: inherit; color: inherit; }
   background:
     radial-gradient(closest-side, #FFF 0%, #FFF 42%, rgba(255, 255, 255, 0.75) 66%, rgba(255, 255, 255, 0) 100%);
 }
-.ecran { position: relative; height: clamp(300px, 64svh, 720px); }
+.ecran { position: relative; height: clamp(300px, 61svh, 720px); }
 .vue {
   position: absolute; inset: 0; margin: 0;
   display: grid; place-items: center;
@@ -169,29 +169,70 @@ h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -
 .legende-seance a { text-decoration-color: rgba(0, 0, 0, 0.35); }
 
 /* La boîte à plaques : index des projets */
-.boite { grid-area: boite; }
-.boite ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 128px)); justify-content: space-between; gap: clamp(12px, 1.6vw, 22px); }
+.boite { grid-area: boite; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 4fr); gap: clamp(20px, 3vw, 48px); }
+.boite-titre { margin: 0 0 10px; font: 700 0.95rem/1.2 var(--besley); }
+.boite-titre a { text-decoration: none; }
+.boite-titre a:hover { text-decoration: underline; }
+.boite ol { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: clamp(10px, 1.4vw, 18px); }
+.monture { transition: opacity 0.25s ease-out; }
+.monture.est-hors-filtre { opacity: 0.28; }
 .monture { display: block; text-decoration: none; color: inherit; }
+/* la monture montre l'œuvre entière : la fenêtre épouse l'image, jamais de recadrage */
 .verre {
-  display: block; aspect-ratio: 1;
-  padding: 11%;
+  display: grid; place-items: center;
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  aspect-ratio: 5 / 4;
+  padding: 7%;
   background: var(--noir); border-radius: 4px;
   box-shadow: var(--ombre-monture);
   transition: transform 0.22s var(--sortie), box-shadow 0.22s var(--sortie);
 }
-.verre img { width: 100%; height: 100%; object-fit: cover; border-radius: 18%; }
+.verre img { width: auto; height: auto; max-width: 100%; max-height: 100%; border-radius: 6%; }
 .etiquette, .etiquette-plaque {
   position: relative; display: block;
   background: var(--etiquette); color: var(--sur-etiquette);
   box-shadow: 0 2px 3px -1px rgba(0, 0, 0, 0.35);
 }
-.etiquette { margin: -12px 8% 0; padding: 6px 8px 7px; font: 600 0.86rem/1.2 var(--besley); }
+.etiquette { margin: -12px 8% 0; padding: 6px 8px 7px; font: 600 0.86rem/1.2 var(--besley);  hyphens: auto; overflow-wrap: break-word; }
 .etiquette .no { display: block; font-weight: 800; font-variant-numeric: lining-nums; }
+/* l'étiquette se colle sur la bordure de la monture, pas sur l'œuvre */
+.monture .verre { padding-bottom: 17%; }
 .monture:hover .verre { transform: translateY(-4px); box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), 0 16px 22px -12px rgba(0, 0, 0, 0.7); }
 .monture:focus-visible { outline-offset: 5px; }
 
 /* ---------- Les plaques ---------- */
 .plaques { width: var(--wrap); margin: 0 auto; }
+
+/* Filtre par métier : collé sous le bandeau pendant la lecture des projets */
+.filtre {
+  position: sticky; top: var(--bandeau); z-index: 20;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  margin-top: clamp(56px, 7vw, 96px); padding: 12px 0;
+  background: var(--toile);
+}
+.filtre-titre { margin-right: 8px; font: 700 0.95rem/1 var(--besley); }
+.filtre-choix {
+  padding: 9px 14px; border: 1.5px solid var(--noir); border-radius: 3px;
+  background: transparent; cursor: pointer;
+  font: 600 0.92rem/1.1 var(--besley);
+  transition: background-color 0.18s ease-out, color 0.18s ease-out;
+}
+.filtre-choix:hover, .filtre-choix[aria-pressed="true"] { background: var(--noir); color: var(--toile); }
+
+/* Carton de chapitre : la plaque-titre qui annonce une partie de la séance */
+.chapitre { padding-top: clamp(40px, 5vw, 72px); }
+.chapitre + .chapitre { padding-top: clamp(120px, 13vw, 180px); }
+.carton {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: 16px 48px; align-items: end;
+  padding: 44px 48px;
+  background: var(--noir); color: var(--toile);
+  border-radius: 4px; box-shadow: var(--ombre-monture);
+}
+.carton h2 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -0.02em; }
+.carton p { margin: 0; max-width: 58ch; line-height: 1.55; }
+.carton :focus-visible { outline-color: var(--toile); }
+.carton + .plaque { padding-top: clamp(64px, 7vw, 96px); }
 .plaque { --ecran-h: clamp(340px, 70svh, 720px); padding-top: clamp(96px, 11vw, 160px); }
 .plaque-large { --ecran-h: clamp(360px, 84svh, 900px); }
 
@@ -261,9 +302,11 @@ h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -
   padding: 0; border: 0; background: none; cursor: pointer;
   text-align: center;
 }
-.vignette .verre { padding: 10%; }
+.vignette .verre { padding: 7%; }
 .vignette-texte { font-size: 0.85rem; line-height: 1.25; }
 .vignette:hover .verre { transform: translateY(-3px); }
+.vignette { transition: opacity 0.25s ease-out; }
+.vignette.est-hors-filtre { opacity: 0.35; }
 .vignette[aria-pressed="true"] .verre { transform: translateY(-5px); outline: 3px solid var(--etiquette); outline-offset: 3px; }
 .vignette[aria-pressed="true"] .vignette-texte { font-weight: 700; }
 .vignette:focus-visible { outline: none; }
@@ -285,13 +328,13 @@ h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -
   grid-template-areas: "titre titre" "texte faits";
   column-gap: clamp(28px, 5vw, 80px); row-gap: 28px;
 }
-.apropos h2 { grid-area: titre; font-size: clamp(2.2rem, 4.2vw, 3.4rem); line-height: 1.05; }
+.apropos h2 { grid-area: titre; font-size: clamp(2.1rem, 4.4vw, 3.8rem); line-height: 1.02; }
 .apropos-texte { grid-area: texte; max-width: 62ch; }
 .apropos-texte p { margin: 0 0 16px; }
 .garantie { font: italic 400 1.2rem/1.5 var(--besley); margin-top: 24px !important; }
 .faits { grid-area: faits; margin: 0; display: grid; gap: 22px; align-content: start; }
 .faits dt { font: 700 1rem/1.3 var(--besley); margin-bottom: 4px; }
-.faits dd { margin: 0; color: #2B2F33; }
+.faits dd { margin: 0; }
 
 /* ---------- Contact : fin de la séance ---------- */
 .contact {
@@ -300,15 +343,15 @@ h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -
   background: var(--prusse); color: var(--toile);
 }
 .contact-dedans { width: var(--wrap); margin: 0 auto; }
-.contact h2 { font-size: clamp(2.3rem, 5.4vw, 4.6rem); line-height: 1.02; letter-spacing: -0.015em; max-width: 17ch; }
-.contact p { max-width: 52ch; font-size: 1.12rem; margin: 26px 0 0; }
+.contact h2 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -0.02em; max-width: 17ch; }
+.contact p { max-width: 52ch; margin: 26px 0 0; }
 .contact .contact-adresse { max-width: none; }
 .adresse { font: 600 clamp(1.35rem, 3vw, 2.2rem)/1.2 var(--besley); text-decoration-thickness: 2px; overflow-wrap: anywhere; }
 .adresse:hover { color: var(--chrome); }
 .contact :focus-visible { outline-color: var(--toile); }
 
 .pied { width: var(--wrap); margin: 0 auto; padding: 28px 0 44px; }
-.pied p { margin: 0; font-size: 0.9rem; color: var(--gris); }
+.pied p { margin: 0; font-size: 0.95rem; color: var(--gris); }
 
 /* ---------- La salle : projection en grand ---------- */
 .salle {
@@ -331,6 +374,7 @@ h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -
 
 /* ---------- Écrans moyens et petits ---------- */
 @media (max-width: 1000px) {
+  html { scroll-padding-top: calc(var(--bandeau) + 16px); }
   .seance {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "ecran" "annonce" "boite";
@@ -354,14 +398,20 @@ h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -
   }
   .boite li { scroll-snap-align: start; }
   .apropos { grid-template-columns: minmax(0, 1fr); grid-template-areas: "titre" "texte" "faits"; }
+  .boite { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .carton { grid-template-columns: minmax(0, 1fr); padding: 28px 24px; }
+  .filtre { position: static; flex-wrap: nowrap; overflow-x: auto; padding: 8px 2px 10px; }
+  .filtre-choix { flex: none; }
 }
 @media (max-width: 560px) {
   :root { --bandeau: 56px; --coin: 10px; }
-  .nom { font-size: 1.12rem; }
+  .nom { font-size: 1.02rem; }
   .bandeau-liens a { font-size: 0.95rem; }
   .bandeau .bouton { padding: 9px 12px; }
   .bandeau .bouton .long { display: none; }
   .bandeau .bouton .court { display: inline; }
+  .lien-apropos { display: none; }
+  .etiquette { margin-inline: 4%; padding-inline: 6px; }
   .etiquette-plaque { padding: 22px; }
   .vignette { width: 76px; }
   .ecran-plaque { padding: 16px 0 16px; }
