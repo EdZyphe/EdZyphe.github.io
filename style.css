@@ -129,10 +129,9 @@ button { font: inherit; color: inherit; }
 /* ---------- Séance : premier écran ---------- */
 .seance {
   width: var(--wrap); margin: 0 auto;
-  min-height: calc(100svh - var(--bandeau));
   display: grid;
   grid-template-columns: minmax(0, 1.9fr) minmax(300px, 0.8fr);
-  grid-template-areas: "ecran annonce" "boite boite";
+  grid-template-areas: "ecran annonce";
   align-content: start;
   column-gap: clamp(32px, 4vw, 64px);
   row-gap: clamp(20px, 3svh, 32px);
@@ -167,8 +166,8 @@ h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -
 .legende-seance { font: italic 400 1rem/1.45 var(--besley); color: var(--gris); max-width: 32ch; margin: 0 0 14px; min-height: 4.35em; }
 .legende-seance a { text-decoration-color: rgba(0, 0, 0, 0.35); }
 
-/* La boîte à plaques : index des projets */
-.boite { grid-area: boite; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 4fr); gap: clamp(20px, 3vw, 48px); }
+/* La boîte à plaques : index des projets, sous le filtre par métier */
+.boite { margin-top: 20px; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 4fr); gap: clamp(20px, 3vw, 48px); }
 .boite-titre { margin: 0 0 10px; font: 700 0.95rem/1.2 var(--besley); }
 .boite-titre a { text-decoration: none; }
 .boite-titre a:hover { text-decoration: underline; }
@@ -206,7 +205,7 @@ h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -
 .filtre {
   position: sticky; top: var(--bandeau); z-index: 20;
   display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
-  margin-top: clamp(56px, 7vw, 96px); padding: 12px 0;
+  padding: 12px 0;
   background: var(--toile);
 }
 .filtre-titre { margin-right: 8px; font: 700 0.95rem/1 var(--besley); }
@@ -276,6 +275,20 @@ h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -
 .etiquette-plaque dt { font: 700 1.02rem/1.3 var(--besley); margin-bottom: 6px; }
 .etiquette-plaque dd { margin: 0; line-height: 1.5; }
 .etiquette-plaque :focus-visible { outline-color: var(--sur-etiquette); }
+/* Bureau : l'œuvre à gauche, son étiquette à droite (sa largeur ne suit plus l'œuvre) */
+@media (min-width: 1001px) {
+  .plaque {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(19rem, 25rem);
+    grid-template-areas: "tete tete" "ecran etiquette";
+    column-gap: clamp(28px, 3vw, 48px);
+    align-items: center;
+  }
+  .plaque-tete { grid-area: tete; }
+  .ecran-plaque { grid-area: ecran; }
+  .etiquette-plaque { grid-area: etiquette; width: auto; margin: 0; grid-template-columns: minmax(0, 1fr); }
+  .etiquette-plaque dl { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+}
 
 .yt-cadre { width: min(100%, 560px); }
 .yt {
@@ -385,7 +398,7 @@ h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -
   html { scroll-padding-top: calc(var(--bandeau) + 16px); }
   .seance {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "ecran" "annonce" "boite";
+    grid-template-areas: "ecran" "annonce";
     min-height: 0; padding-top: 12px; align-content: start;
   }
   .ecran { height: auto; aspect-ratio: 16 / 10; max-height: 62svh; width: 100%; }
@@ -401,7 +414,7 @@ h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -
   /* en mobile, l'index est une grille (pas de défilement horizontal) */
   .boite ol { grid-auto-flow: row; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 16px 10px; }
   .apropos { grid-template-columns: minmax(0, 1fr); grid-template-areas: "titre" "texte" "faits"; }
-  .boite { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .boite { grid-template-columns: minmax(0, 1fr); gap: 18px; margin-top: 8px; }
   .carton { grid-template-columns: minmax(0, 1fr); padding: 28px 24px; }
   .filtre { position: static; padding: 8px 0 10px; }
 }
