@@ -16,7 +16,7 @@
 .coulisses-toast span span { display: block; font-size: 0.9rem; line-height: 1.35; }
 
 /* ---------- La régie et l'étagère : des écrans de pixel art, la salle éteinte autour ---------- */
-/* la régie : un seul canevas de pixel art (480 × 270 ou 270 × 480), agrandi par multiples entiers, bandes noires autour ;
+/* la régie : un seul canevas de pixel art (480 × 270 ou 270 × 480), agrandi sans lissage pour remplir l'écran (pixels.js) ;
    des boutons transparents sont posés sur les touches dessinées, pour le clavier, le doigt et les lecteurs d'écran */
 /* le portfolio ne défile pas derrière une fenêtre de jeu */
 html:has(dialog.regie[open], dialog.etagere[open]) { overflow: hidden; }

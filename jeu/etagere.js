@@ -5,7 +5,7 @@
 // perforé (verte, rouge quand quelque chose demande l'attention). Contre-jour, ombres portées, poussière,
 // vacillement rare, parallaxe ; tout s'arrête en mouvement réduit. Des boutons transparents sont posés sur
 // tout ce qui se manipule ; le canevas sait quel pixel est touché.
-import { image, paver, neuf } from './pixels.js';
+import { image, paver, neuf, agrandissement } from './pixels.js';
 import { police } from './police.js';
 import { allumerSon, jouerSon } from './son.js';
 import { BAYER, RAMPE, FROID } from './lumiere.js';
@@ -1179,11 +1179,11 @@ function monter(api, im, P) {
   dlg.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !e.repeat) echap(e); else if (e.key === 'Escape') e.preventDefault(); });
   dlg.addEventListener('cancel', echap);
 
-  // ---------- Taille : un nombre entier de pixels de l'écran par pixel du jeu ----------
+  // ---------- Taille : toute la place, en pixels égaux quand c'est possible (pixels.js) ----------
   const ajuster = () => {
     if (!ouvert) return;
-    const al = Math.max(120, dlg.clientWidth - 12);
-    const ah = Math.max(120, dlg.clientHeight - 12);
+    const al = Math.max(120, dlg.clientWidth);
+    const ah = Math.max(120, dlg.clientHeight);
     const p = al < ah ? PLANS.portrait : PLANS.paysage;
     if (p !== plan) {
       plan = p;
@@ -1192,9 +1192,7 @@ function monter(api, im, P) {
       peindreFond();
       construire();
     }
-    const dpr = devicePixelRatio || 1;
-    let k = Math.min(al / p.L, ah / p.H);
-    if (k * dpr >= 1) k = Math.floor(k * dpr) / dpr;
+    const k = agrandissement(al, ah, p.L, p.H);
     ecranEl.style.width = `${Math.round(p.L * k)}px`;
     ecranEl.style.height = `${Math.round(p.H * k)}px`;
     rafraichir();

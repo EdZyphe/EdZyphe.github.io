@@ -25,6 +25,16 @@ export const image = (nom) => {
   return cache.get(nom);
 };
 
+// l'agrandissement d'un écran de jeu (L × H) dans la place disponible : des pixels égaux, un nombre entier de pixels
+// de l'écran par pixel du jeu (Windows à 125 %, écrans denses), tant que cela remplit au moins 90 % de la place ;
+// sinon l'écran remplit la place, toujours sans lissage, plutôt que de rester petit au milieu de bandes noires
+export const agrandissement = (al, ah, L, H) => {
+  const dpr = devicePixelRatio || 1;
+  const k = Math.min(al / L, ah / H);
+  const entier = Math.floor(k * dpr) / dpr;
+  return entier > 0 && entier >= 0.9 * k ? entier : k;
+};
+
 // une icône d'objet, posée derrière une vitre
 export const icone = (nom) => {
   const i = document.createElement('img');

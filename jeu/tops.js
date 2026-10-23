@@ -7,7 +7,7 @@
 // Direction artistique inspirée de Papers, Please (DIRECTION-ARTISTIQUE.md) : la cabine de régie vue
 // de la place du régisseur, dans un seul canevas de pixel art ; des boutons transparents sont posés
 // sur les touches dessinées, pour le clavier, le doigt et les lecteurs d'écran.
-import { image, paver, neuf, CASE } from './pixels.js';
+import { image, paver, neuf, CASE, agrandissement } from './pixels.js';
 import { police } from './police.js';
 import { SCENE, CONSOLE, PAYSAGE, PORTRAIT } from './plans.js';
 import { NIVEAUX, ENERGIE, RATTRAPAGE, SAUTE, POSES, GESTES, GESTES_COURTS, LEURRE, FEINTE, PRISE, OBJETS, PLACES, VIDEOS, seuil, classer, limiteRetard, enScene, repos } from './regles.js';
@@ -1193,8 +1193,8 @@ function ouvrir(options) {
     if (rapport?.lien) placer(aller, rapport.lien);
   };
   const ajuster = () => {
-    const al = Math.max(120, dlg.clientWidth - 12);
-    const ah = Math.max(120, dlg.clientHeight - 12);
+    const al = Math.max(120, dlg.clientWidth);
+    const ah = Math.max(120, dlg.clientHeight);
     const p = al < ah ? PORTRAIT : PAYSAGE;
     if (p !== plan) {
       plan = p;
@@ -1205,10 +1205,8 @@ function ouvrir(options) {
       if (rapport) terminerPlan();
       placerTouches();
     }
-    let k = Math.min(al / p.L, ah / p.H);
-    // des pixels égaux : un nombre entier de pixels de l'écran par pixel du jeu (Windows à 125 %, écrans denses)
-    const dpr = devicePixelRatio || 1;
-    if (k * dpr >= 1) k = Math.floor(k * dpr) / dpr;
+    // toute la place, en pixels égaux quand c'est possible (pixels.js)
+    const k = agrandissement(al, ah, p.L, p.H);
     ecranEl.style.width = `${Math.round(p.L * k)}px`;
     ecranEl.style.height = `${Math.round(p.H * k)}px`;
     rafraichir();
