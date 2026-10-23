@@ -125,6 +125,21 @@ button { font: inherit; color: inherit; }
 .bandeau-liens { display: flex; gap: clamp(14px, 2.4vw, 28px); margin-left: auto; }
 .bandeau-liens a { font-weight: 500; text-decoration: none; padding: 10px 0; }
 .bandeau-liens a:hover { text-decoration: underline; }
+/* La servante : la lampe qu'on laisse allumée sur le plateau, seul signe du jeu des coulisses */
+.servante {
+  flex: none; display: grid; place-items: center;
+  width: 40px; height: 40px; padding: 0;
+  border: 0; border-radius: 4px;
+  background: var(--noir); box-shadow: var(--ombre-monture);
+  cursor: pointer;
+  transition: transform 0.22s var(--sortie), filter 0.22s ease-out;
+}
+.servante svg { width: 28px; height: 28px; }
+.servante:hover { transform: translateY(-2px); }
+.servante[aria-pressed="false"] svg { opacity: 0.5; }
+.servante[aria-pressed="true"] { filter: drop-shadow(0 0 7px rgba(242, 177, 12, 0.85)); }
+.servante.allumage { animation: allumage 0.5s steps(4) 1; }
+@keyframes allumage { 0% { filter: none; } 100% { filter: drop-shadow(0 0 9px rgba(242, 177, 12, 0.95)); } }
 
 /* ---------- Séance : premier écran ---------- */
 .seance {
@@ -423,6 +438,8 @@ h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -
   .nom { font-size: 1.02rem; }
   .bandeau-liens a { font-size: 0.95rem; }
   .bandeau .bouton { padding: 9px 12px; }
+  .servante { width: 34px; height: 34px; }
+  .servante svg { width: 24px; height: 24px; }
   .bandeau .bouton .long { display: none; }
   .bandeau .bouton .court { display: inline; }
   .lien-apropos { display: none; }
@@ -436,6 +453,7 @@ h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); line-height: 0.95; letter-spacing: -
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .vue, .vue.est-active { transition: none; }
-  .verre, .commande, .bouton, .etiquette-plaque, .monture, .vignette, .filtre-choix { transition: none; }
+  .verre, .commande, .bouton, .etiquette-plaque, .monture, .vignette, .filtre-choix, .servante { transition: none; }
+  .servante.toque { animation: none; }
   .salle[open]::backdrop { animation: none; }
 }

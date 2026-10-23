@@ -3,6 +3,54 @@ document.documentElement.classList.add('js', 'mise-en-place');
 
 const mouvementReduit = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+// ---------- Coulisses : le carnet du jeu caché ----------
+// Ouvert le 23/10/2026 à la demande de Pierre, avec les images de remplacement de jeu/sprites/ : ses dessins les
+// remplaceront ensuite. Fermé (false), il ne coûte rien : le carnet ne note rien et aucun observateur n'est posé.
+const COULISSES_OUVERTES = true;
+// Le carnet note ce que l'on a vu du portfolio. Il ne s'écrit dans le navigateur qu'une fois la
+// servante allumée ; avant, il reste en mémoire le temps de la visite, et compte si on l'allume.
+const CARNET = 'pw-portfolio:coulisses';
+const lireCarnet = () => {
+  try {
+    const ancien = localStorage.getItem('coulisses');
+    const c = JSON.parse(localStorage.getItem(CARNET) ?? ancien);
+    if (!c || typeof c !== 'object' || Array.isArray(c)) return {};
+    // version 0 : pièces repérées par leur position et œuvres par leur image, non comparables ; on les oublie
+    if (!(c.v >= 1) && c.faits && typeof c.faits === 'object') { delete c.faits.vue; delete c.faits.salle; }
+    if (ancien !== null) { localStorage.removeItem('coulisses'); if (c.allume) localStorage.setItem(CARNET, JSON.stringify(c)); }
+    return c;
+  } catch (e) { return {}; }
+};
+const carnet = COULISSES_OUVERTES ? lireCarnet() : {};
+carnet.faits = carnet.faits && typeof carnet.faits === 'object' && !Array.isArray(carnet.faits) ? carnet.faits : {};
+const garderCarnet = () => {
+  if (!carnet.allume) return;
+  try { localStorage.setItem(CARNET, JSON.stringify(carnet)); window.coulisses.nonGarde = false; } catch (e) { window.coulisses.nonGarde = true; }
+};
+const noter = (type, id) => {
+  if (!COULISSES_OUVERTES || !id) return;
+  // pendant le jeu, ce qui défile derrière la régie ou l'étagère n'a pas été vu
+  if (document.querySelector('dialog.etagere[open], dialog.regie[open]')) return;
+  try {
+    const liste = Array.isArray(carnet.faits[type]) ? carnet.faits[type] : (carnet.faits[type] = []);
+    if (liste.includes(id)) return;
+    liste.push(id);
+    garderCarnet();
+    document.dispatchEvent(new CustomEvent('coulisses:fait', { detail: { type, id } }));
+  } catch (e) { /* le portfolio passe avant le jeu */ }
+};
+// une pièce est repérée par son média, pas par sa position : l'ordre des pièces peut changer
+const idPiece = (piece) => (piece.querySelector('[data-yt]')?.dataset.yt || piece.querySelector('source')?.getAttribute('src') || piece.querySelector('img')?.getAttribute('src') || '').split('/').pop();
+window.coulisses = { carnet, garder: garderCarnet, noter, idPiece, CARNET, nonGarde: false };
+// une nouvelle visite : au moins une demi-heure après la précédente
+if (carnet.allume && Date.now() - (carnet.derniere || 0) > 30 * 60 * 1000) {
+  carnet.visites = (carnet.visites || 0) + 1;
+  carnet.absence = Date.now() - (carnet.derniere || Date.now());
+}
+carnet.derniere = Date.now();
+garderCarnet();
+addEventListener('pagehide', () => { carnet.derniere = Date.now(); garderCarnet(); });
+
 // ---------- Séance : fondu enchaîné entre les plaques du premier écran ----------
 const seance = document.querySelector('[data-seance]');
 if (seance) {
@@ -138,6 +186,7 @@ if (filtre) {
   const correspond = (piece, metier) => !metier || piece.dataset.metiers.split(' ').includes(metier);
 
   const filtrer = (metier) => {
+    if (metier) noter('filtre', metier);
     choix.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.metier === metier)));
     let visibles = 0;
     plaques.forEach((plaque) => {
@@ -233,6 +282,7 @@ const montrerDansSalle = (i) => {
       salleImage.src = img.dataset.grand;
       salleImage.alt = img.alt;
       salleLegende.textContent = pieces[j].querySelector('.legende-texte')?.textContent ?? '';
+      noter('salle', pieces[j].closest('.plaque')?.id);
       salleEtat.projeter(j);
       return;
     }
@@ -268,7 +318,46 @@ document.querySelectorAll('button.yt').forEach((btn) => {
     iframe.allowFullscreen = true;
     btn.replaceWith(iframe);
     iframe.focus();
+    noter('video', `youtube:${btn.dataset.yt}`);
+    noter('son', `youtube:${btn.dataset.yt}`);
   });
 });
 
 document.querySelector('[data-annee]').textContent = new Date().getFullYear();
+
+// ---------- Coulisses : ce que le carnet note en chemin, et la servante (jeu ouvert seulement) ----------
+if (COULISSES_OUVERTES) {
+  // chaque pièce projetée compte comme vue ; la première, quand l'écran de la plaque entre dans la page
+  document.querySelectorAll('.plaque').forEach((plaque) => {
+    const vue = () => {
+      const piece = plaque.querySelector('.piece.est-active');
+      if (piece) noter('vue', `${plaque.id}:${idPiece(piece)}`);
+    };
+    plaque.addEventListener('plaque:change', vue);
+    new IntersectionObserver((entrees) => { if (entrees.some((e) => e.isIntersecting)) vue(); }, { threshold: 0.5 })
+      .observe(plaque.querySelector('.ecran-plaque'));
+  });
+  // une vidéo compte après 5 s de lecture ; le son, quand la moitié a été écoutée avec le son
+  // (la séance d'ouverture se lance seule : elle ne compte pas)
+  document.addEventListener('timeupdate', (e) => {
+    const video = e.target;
+    if (!video.closest?.('.plaque') || video.paused) return;
+    const id = (video.currentSrc || '').split('/').pop();
+    if (video.currentTime >= 5) noter('video', id);
+    if (!video.muted && video.volume > 0 && !video.hasAttribute('data-boucle') && video.duration && video.currentTime >= video.duration / 2) noter('son', id);
+  }, true);
+  [['#apropos', 'apropos'], ['.contact', 'contact']].forEach(([selecteur, fait]) => {
+    const el = document.querySelector(selecteur);
+    if (el) new IntersectionObserver((entrees) => { if (entrees.some((e) => e.isIntersecting)) noter(fait, fait); }, { threshold: 0.3 }).observe(el);
+  });
+  // la servante allume le jeu, chargé seulement à ce moment-là
+  const servante = document.querySelector('[data-servante]');
+  if (servante) {
+    let jeu = null;
+    const charger = () => (jeu ||= import('./jeu/coulisses.js').catch((e) => { jeu = null; throw e; }));
+    servante.hidden = false;
+    servante.setAttribute('aria-pressed', String(Boolean(carnet.allume)));
+    servante.addEventListener('click', () => charger().then((m) => m.ouvrir()).catch((e) => console.error('[coulisses]', e)));
+    if (carnet.allume) (window.requestIdleCallback || setTimeout)(() => charger().then((m) => m.installer()).catch((e) => console.error('[coulisses]', e)));
+  }
+}

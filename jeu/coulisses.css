@@ -1,0 +1,53 @@
+/* Coulisses : le jeu caché. Dans le site (cachettes, messages), le pixel art reste derrière le verre,
+   comme les œuvres du portfolio. L'étagère et la régie sont des écrans de pixel art (DIRECTION-ARTISTIQUE.md). */
+.px { image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
+
+/* la cachette : une ligne sur l'étiquette d'une plaque */
+.cachette { grid-column: 1 / -1; display: flex; gap: 12px; align-items: center; margin: 0; padding-top: 14px; border-top: 1.5px dashed currentColor; font-size: 0.95rem; line-height: 1.4; }
+.cachette .mini { flex: none; display: grid; place-items: center; width: 44px; height: 44px; background: var(--noir); border-radius: 4px; }
+.cachette .mini img { width: 32px; height: 32px; padding: 2px; box-sizing: content-box; background: #fff; border-radius: 3px; }
+
+/* les messages : une étiquette collée en bas de l'écran, au-dessus de tout */
+.coulisses-toast { position: fixed; inset: auto auto calc(16px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); margin: 0; z-index: 60; max-width: min(420px, calc(100% - 32px)); display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 12px; align-items: center; padding: 10px 14px 10px 10px; border: 0; background: var(--chrome); color: var(--noir); box-shadow: 0 2px 3px -1px rgba(0, 0, 0, 0.35), 0 18px 28px -18px rgba(0, 0, 0, 0.6); overflow: visible; }
+.coulisses-toast[popover]:not(:popover-open) { display: none; }
+.coulisses-toast .mini { width: 52px; aspect-ratio: 1; display: grid; place-items: center; background: var(--noir); border-radius: 4px; }
+.coulisses-toast img { width: 36px; height: 36px; padding: 2px; box-sizing: content-box; background: #fff; border-radius: 3px; }
+.coulisses-toast strong { display: block; font: 700 1rem/1.25 var(--besley); }
+.coulisses-toast span span { display: block; font-size: 0.9rem; line-height: 1.35; }
+
+/* ---------- La régie et l'étagère : des écrans de pixel art, la salle éteinte autour ---------- */
+/* la régie : un seul canevas de pixel art (480 × 270 ou 270 × 480), agrandi par multiples entiers, bandes noires autour ;
+   des boutons transparents sont posés sur les touches dessinées, pour le clavier, le doigt et les lecteurs d'écran */
+/* le portfolio ne défile pas derrière une fenêtre de jeu */
+html:has(dialog.regie[open], dialog.etagere[open]) { overflow: hidden; }
+.regie, .etagere { overscroll-behavior: contain; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: #000; color: var(--toile); overflow: hidden; }
+.regie[open], .etagere[open] { display: grid; place-items: center; }
+.regie::backdrop, .etagere::backdrop { background: #000; }
+.regie[open]::backdrop, .etagere[open]::backdrop { animation: eteindre 0.32s ease-out; }
+.regie-ecran { position: relative; }
+.regie-ecran canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; touch-action: manipulation; }
+.regie-touche { position: absolute; margin: 0; padding: 0; border: 0; border-radius: 0; background: transparent; color: transparent; font-size: 0; cursor: pointer; touch-action: manipulation; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+.regie-touche:focus-visible { outline: 2px solid #F2E94E; outline-offset: 1px; }
+.regie-touche:disabled, .regie-touche[aria-disabled="true"] { cursor: default; }
+/* sur l'étagère, le focus est dessiné dans le canevas : coins de visée sur les objets et les rubans, cadre à l'encre sur les lignes */
+.etagere .regie-touche:focus-visible { outline: none; }
+.etagere-chose { pointer-events: none; } /* le pointeur passe au canevas, qui sait quel pixel est touché */
+/* « Lire la fiche » : la même fiche en texte du site, qui suit le zoom du navigateur */
+.etagere-lecture { position: absolute; inset: 0; overflow: auto; overscroll-behavior: contain; padding: clamp(16px, 5vw, 48px) clamp(16px, 6vw, 72px); background: var(--toile); color: var(--noir); font: 400 1rem/1.5 var(--archivo); }
+.etagere-lecture > * { max-width: 62ch; }
+.etagere-lecture h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: 0.5em; }
+.etagere-lecture h3 { font-size: 1.3rem; margin: 1.6em 0 0.4em; }
+.etagere-lecture h4 { font: 700 1rem/1.3 var(--besley); margin: 1.1em 0 0.2em; }
+.etagere-lecture p { margin: 0 0 0.6em; }
+.etagere-lecture ul { margin: 0 0 0.6em; padding-left: 1.2em; }
+.etagere-lecture .bouton { margin-top: 1.4em; }
+.etagere-lecture:focus { outline: none; }
+.etagere-lecture:focus-visible { outline: 2px solid var(--noir); outline-offset: -6px; }
+/* sur téléphone, en bas, les messages couvriraient la planche : ils passent en haut, sur la bande noire */
+@media (orientation: portrait) {
+  html:has(dialog.etagere[open]) .coulisses-toast { inset: calc(12px + env(safe-area-inset-top, 0px)) auto auto max(16px, env(safe-area-inset-left, 0px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .regie[open]::backdrop, .etagere[open]::backdrop { animation: none; }
+}
